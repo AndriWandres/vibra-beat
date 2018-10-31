@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecordingActivity.class);
         startActivity(intent);
     }
+
+    public void mybeats(View view) {
+        Intent intent = new Intent(this, MyBeatsActivity.class);
+        startActivity(intent);
+    }
 }
