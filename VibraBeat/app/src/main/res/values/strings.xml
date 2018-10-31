@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VibraBeat</string>
+    <string name="press_start">Press Start to Record</string>
+    <string name="my_rec_beats">My Recorded Beats</string>
+    <string name="make_beats">Tap to Make a Beat</string>
+    <string name="recording">Recording...</string>
 </resources>
