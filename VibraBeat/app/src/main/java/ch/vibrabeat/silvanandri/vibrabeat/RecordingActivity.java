@@ -38,27 +38,26 @@ public class RecordingActivity extends AppCompatActivity {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     v.setBackgroundResource(R.color.lightBgColor);
-                    onTouchDown();
-                } else if(event.getAction() == MotionEvent.ACTION_UP) {
-                    v.setBackgroundResource(R.color.bgColor);
-                    onTouchUp();
-
 
                     vibrating = true;
 
                     Thread t = new Thread() {
                         @Override
-                         public void run() {
+                        public void run() {
                             while (vibrating) {
                                 vib.vibrate(100);
                             }
                         }
                     };
                     t.start();
+
+                    onTouchDown();
                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
                     v.setBackgroundResource(R.color.bgColor);
 
                     vibrating = false;
+
+                    onTouchUp();
                 }
 
                 return true;
@@ -72,13 +71,12 @@ public class RecordingActivity extends AppCompatActivity {
         });
     }
 
-    /** Stops recording and switches to SaveBeatActivity */
+    /** Stops recording and switches to SaveActivity */
     public void stopRecording() {
-        //Intent intent = new Intent(this, MainActivity.class);
-        //startActivity(intent);
-        Beat beat = new Beat(beatStr);
-        Log.d("", "Beat: " + beat);
+        Intent intent = new Intent(this, SaveActivity.class);
+        intent.putExtra("beatStr", beatStr);
 
+        startActivity(intent);
     }
 
     /** Is fired when finger is placed on the center area */
