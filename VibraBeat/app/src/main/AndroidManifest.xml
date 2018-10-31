@@ -34,7 +34,10 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
 
-        <activity android:name=".RecordingActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".RecordingActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SaveActivity"></activity>
     </application>
 
 </manifest>

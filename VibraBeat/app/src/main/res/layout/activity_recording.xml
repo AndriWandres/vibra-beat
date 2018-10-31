@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/stopButton"
         android:layout_width="97dp"
         android:layout_height="94dp"
         android:layout_marginStart="8dp"

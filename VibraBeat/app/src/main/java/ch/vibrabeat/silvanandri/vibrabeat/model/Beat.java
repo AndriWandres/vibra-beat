@@ -8,6 +8,10 @@ public class Beat extends SugarRecord {
 
     public Beat() {}
 
+    public Beat(String beatString) {
+        this(null, beatString);
+    }
+
     public Beat(String name, String beatString) {
         this.name = name;
         this.beatString = beatString;
