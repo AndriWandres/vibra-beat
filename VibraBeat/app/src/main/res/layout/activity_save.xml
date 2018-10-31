@@ -4,6 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".SaveActivity">
 
+    <EditText
+        android:id="@+id/name_input"
+        android:layout_width="377dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:hint="@string/save_input_hint"
+        android:inputType="textShortMessage"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/lightBgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/save_play_button"
+        android:layout_width="62dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="playRecording"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/play_button" />
 </android.support.constraint.ConstraintLayout>

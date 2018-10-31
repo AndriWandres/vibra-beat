@@ -5,6 +5,6 @@
     <color name="colorAccent">#616161</color>
     <color name="bgColor">#101010</color>
     <color name="lightBgColor">#808080</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
     <color name="red">#d20000</color>
 </resources>
