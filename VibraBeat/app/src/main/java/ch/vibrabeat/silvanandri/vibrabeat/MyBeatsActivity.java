@@ -3,6 +3,9 @@ package ch.vibrabeat.silvanandri.vibrabeat;
 import ch.vibrabeat.silvanandri.vibrabeat.model.Beat;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,40 +15,72 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyBeatsActivity extends AppCompatActivity {
+    private View viewItem;
+
+    private Timer timer;
+
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_beats);
 
-        Beat[] beats = {
-                new Beat("Test Beat 1", ""),
-                new Beat("Test Beat 2", ""),
-                new Beat("Test Beat 3", ""),
-                new Beat("Test Beat 4", ""),
-                new Beat("Test Beat 5", ""),
-        };
+        // Prepare Handler and Timer
+        timer = new Timer();
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                viewItem.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.bgColor);
 
+                return true;
+            }
+        });
+
+        // Load Data
+        final List<Beat> beats =  Beat.listAll(Beat.class);
+
+        // Prepare ListView Adapter
         BeatArrayAdapter adapter = new BeatArrayAdapter(this, beats);
 
+        // Set List View Adapter and onItemClick
         ListView lv = findViewById(R.id.beatsView);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Click ListItem Number " + position, Toast.LENGTH_LONG) .show();
+                viewItem = view;
+                view.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.lightBgColor);
+
+                beats.get(position).runBeatString((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+
+                String[] strings = beats.get(position).getBeatString().split(";");
+                long time = 0;
+                for(String s : strings) {
+                    time += Integer.parseInt(s);
+                }
+
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.sendEmptyMessage(0);
+                    }
+                }, time);
             }
         });
     }
 
     private class BeatArrayAdapter extends ArrayAdapter<Beat> {
         private Context context;
-        private Beat[] beats;
+        private List<Beat> beats;
 
-        public BeatArrayAdapter(Context context, Beat[] beats) {
+        public BeatArrayAdapter(Context context, List<Beat> beats) {
             super(context, -1, beats);
 
             this.context = context;
@@ -57,9 +92,9 @@ public class MyBeatsActivity extends AppCompatActivity {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View beatItem = inflater.inflate(R.layout.beat_item, parent, false);
             TextView beatItemName = beatItem.findViewById(R.id.beatItemName);
-            beatItemName.setText("Test");
+            beatItemName.setText(beats.get(position).getName());
             TextView beatItemTime = beatItem.findViewById(R.id.beatItemTime);
-            beatItemTime.setText("10:10");
+            beatItemTime.setText(beats.get(position).getBeatLength());
 
             return beatItem;
         }

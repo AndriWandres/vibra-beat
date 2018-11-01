@@ -2,9 +2,7 @@ package ch.vibrabeat.silvanandri.vibrabeat;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,25 +33,10 @@ public class SaveActivity extends AppCompatActivity {
      * @param view User interface component
      */
     public void playRecording(View view) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        beatStr = "0;" + beatStr;
+        Beat beat = new Beat("0;" + beatStr);
+        Log.d("",beat.getBeatLength());
 
-        // Read pattern from beat string
-        String[] patternStr = beatStr.split(";");
-        long[] patternLong = new long[patternStr.length];
-        int[] amplitudes = new int[patternLong.length];
-
-        for(int i = 0; i < patternStr.length; i++) {
-            patternLong[i] = Long.parseLong(patternStr[i]);
-            amplitudes[i] = 255;
-        }
-
-        // Vibrate depending on Amplitude support
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            vibrator.vibrate(VibrationEffect.createWaveform(patternLong, amplitudes, -1));
-        } else{
-            vibrator.vibrate(patternLong, -1);
-        }
+        beat.runBeatString((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
     }
 
     /**
