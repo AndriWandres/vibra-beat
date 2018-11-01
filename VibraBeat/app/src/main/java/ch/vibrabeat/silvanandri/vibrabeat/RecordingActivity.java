@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,17 +25,23 @@ public class RecordingActivity extends AppCompatActivity {
 
     /** Indicator whether the phone is vibrating */
     private boolean vibrating = false;
+
+    /** Indicator whether the timer has started */
     private boolean timerStarted = false;
 
     /** Service to control hardware vibration */
     private Vibrator vibrator;
 
+    /** View item of the timer */
     private TextView timerText;
 
+    /** Handler for using callbacks */
     private Handler handler;
 
+    /** Runnable timer instance */
     private Runnable timerRunnable;
 
+    /** Number of milliseconds that have passed while recording */
     private int timePassed = 0;
 
     /**
@@ -108,8 +112,6 @@ public class RecordingActivity extends AppCompatActivity {
                 stopRecording();
             }
         });
-
-
     }
 
     /** Stops recording and navigates to SaveActivity */
@@ -127,7 +129,7 @@ public class RecordingActivity extends AppCompatActivity {
         if(!timerStarted) {
             timerStarted = true;
 
-            handler.postDelayed(timerRunnable, 0);
+            handler.postDelayed(timerRunnable, 1000);
         }
 
         Date timestamp_new = new Date();
