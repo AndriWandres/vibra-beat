@@ -91,10 +91,24 @@ public class MyBeatsActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View beatItem = inflater.inflate(R.layout.beat_item, parent, false);
+
             TextView beatItemName = beatItem.findViewById(R.id.beatItemName);
             beatItemName.setText(beats.get(position).getName());
+
             TextView beatItemTime = beatItem.findViewById(R.id.beatItemTime);
             beatItemTime.setText(beats.get(position).getBeatLength());
+
+            beatItem.findViewById(R.id.deleteText).setTag(position);
+
+            beatItem.findViewById(R.id.deleteText).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    beats.get((int) v.getTag()).delete();
+                    beats.remove(beats.get((int) v.getTag()));
+
+                    notifyDataSetChanged();
+                }
+            });
 
             return beatItem;
         }

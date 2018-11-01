@@ -49,7 +49,7 @@ public class SaveActivity extends AppCompatActivity {
 
         // Save beat to database
         if (name != null && !name.trim().equals("")) {
-            Beat beat = new Beat(name, beatStr);
+            Beat beat = new Beat(name, "0;" + beatStr);
             beat.save();
         }
     }

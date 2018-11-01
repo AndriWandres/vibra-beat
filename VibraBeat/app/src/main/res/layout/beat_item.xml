@@ -37,10 +37,24 @@
         android:id="@+id/beatItemTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@+id/deleteText"
         android:text="01:10"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/deleteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="5dp"
+        android:text="×"
+        android:textSize="30sp"
+        android:textColor="@color/red"/>
 
 </RelativeLayout>
