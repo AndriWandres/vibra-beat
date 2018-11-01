@@ -41,8 +41,32 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:background="@color/blue"
         android:onClick="saveBeat"
+        android:text="@string/save_button_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/lightRed"
+        android:text="@string/cancel_button_text"
+        android:onClick="cancel"
+        app:layout_constraintStart_toEndOf="@+id/save_button"
+        app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+    <TextView
+        android:id="@+id/recording_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="00:00"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/name_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
