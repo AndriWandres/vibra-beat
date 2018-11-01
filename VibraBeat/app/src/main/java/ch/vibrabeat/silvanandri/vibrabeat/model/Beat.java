@@ -85,8 +85,8 @@ public class Beat extends SugarRecord {
         String[] patternStr = beatString.split(";");
 
         // Count duration by adding up milliseconds
-        for(int i = 0; i < patternStr.length; i++) {
-            ms += Integer.parseInt(patternStr[i]);
+        for (String s : patternStr) {
+            ms += Integer.parseInt(s);
         }
 
         // Add minutes

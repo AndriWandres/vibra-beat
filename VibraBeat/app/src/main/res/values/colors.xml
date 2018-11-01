@@ -7,4 +7,6 @@
     <color name="lightBgColor">#808080</color>
     <color name="white">#ffffff</color>
     <color name="red">#d20000</color>
+    <color name="blue">#55519d</color>
+    <color name="lightRed">#F44336</color>
 </resources>
