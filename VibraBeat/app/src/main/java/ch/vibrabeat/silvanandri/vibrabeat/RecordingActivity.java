@@ -19,7 +19,7 @@ public class RecordingActivity extends AppCompatActivity {
     private Date timestamp;
 
     /** Rhythm in form of milliseconds separated by semicolons */
-    private String beatStr = "";
+    private String beatStr = "0;";
 
     private boolean vibrating = false;
 

@@ -6,4 +6,5 @@
     <string name="recording">Recording...</string>
     <string name="save_input_hint">Name your beat...</string>
     <string name="save_button_text">Save</string>
+    <string name="cancel_button_text">Cancel</string>
 </resources>
