@@ -3,12 +3,16 @@ package ch.vibrabeat.silvanandri.vibrabeat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Date;
+import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,9 +27,18 @@ public class RecordingActivity extends AppCompatActivity {
 
     /** Indicator whether the phone is vibrating */
     private boolean vibrating = false;
+    private boolean timerStarted = false;
 
     /** Service to control hardware vibration */
     private Vibrator vibrator;
+
+    private TextView timerText;
+
+    private Handler handler;
+
+    private Runnable timerRunnable;
+
+    private int timePassed = 0;
 
     /**
      * Is fired on creation of the activity
@@ -37,6 +50,22 @@ public class RecordingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recording);
 
         getSupportActionBar().hide();
+
+        timerText = findViewById(R.id.timer);
+        handler = new Handler();
+        timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                timePassed++;
+
+                int seconds = timePassed % 60;
+                int minutes = (timePassed - seconds) / 60;
+
+                timerText.setText((minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds));
+
+                handler.postDelayed(this, 1000);
+            }
+        };
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -79,10 +108,14 @@ public class RecordingActivity extends AppCompatActivity {
                 stopRecording();
             }
         });
+
+
     }
 
     /** Stops recording and navigates to SaveActivity */
     public void stopRecording() {
+        handler.removeCallbacks(timerRunnable);
+
         Intent intent = new Intent(this, SaveActivity.class);
         intent.putExtra("beatStr", beatStr);
 
@@ -91,6 +124,12 @@ public class RecordingActivity extends AppCompatActivity {
 
     /** Is fired when finger is placed on the center area */
     private void onTouchDown() {
+        if(!timerStarted) {
+            timerStarted = true;
+
+            handler.postDelayed(timerRunnable, 0);
+        }
+
         Date timestamp_new = new Date();
 
         if (timestamp != null) {
