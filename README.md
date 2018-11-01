@@ -1,2 +1,6 @@
-# vibra-beat
-Use Vibra Beat to Feel the Beat
+# VibraBeat
+"Use VibraBeat to Feel the Beat"
+
+## Contributors
+* Silvan Bauer
+* Andri Wandres
