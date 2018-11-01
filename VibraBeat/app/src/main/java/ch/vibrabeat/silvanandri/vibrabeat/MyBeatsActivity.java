@@ -39,7 +39,10 @@ public class MyBeatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_beats);
 
+        // Sets the ActionBar Title
         setTitle("My Beats");
+
+        // Displays the actionbar back button to return to the parent which was specified in the manifest
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Prepare Handler and Timer
@@ -56,7 +59,7 @@ public class MyBeatsActivity extends AppCompatActivity {
         // Load Data
         final List<Beat> beats =  Beat.listAll(Beat.class);
 
-        // Prepare ListView Adapter
+        // Prepare ListView Adapter to create the items which will be displayed
         BeatArrayAdapter adapter = new BeatArrayAdapter(this, beats);
 
         // Set List View Adapter and onItemClick
@@ -65,17 +68,21 @@ public class MyBeatsActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Sets the clicked Item in view to be able to use it in the Handler
                 viewItem = view;
                 view.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.lightBgColor);
 
+                // Runs the beatstring
                 beats.get(position).runBeatString((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
+                // Gets the beatstring and calculates it's length
                 String[] strings = beats.get(position).getBeatString().split(";");
                 long time = 0;
                 for(String s : strings) {
                     time += Integer.parseInt(s);
                 }
 
+                // Starts the timer which runs the handler handleMessage by sending an empty message after it waited time milliseconds
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -102,22 +109,35 @@ public class MyBeatsActivity extends AppCompatActivity {
             this.beats = beats;
         }
 
+        /**
+         * Creates a BeatItem view and returns it
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return BeatItem
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            // Gets the inflater and creates a BeatItem View with the inflater
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View beatItem = inflater.inflate(R.layout.beat_item, parent, false);
 
+            // Sets the text view which displays the beat name
             TextView beatItemName = beatItem.findViewById(R.id.beatItemName);
             beatItemName.setText(beats.get(position).getName());
 
+            // Sets the text view which displays the time
             TextView beatItemTime = beatItem.findViewById(R.id.beatItemTime);
             beatItemTime.setText(beats.get(position).getBeatLength());
 
+            // Sets the tag of the deleteText of the BeatItem to the position in the list
             beatItem.findViewById(R.id.deleteText).setTag(position);
 
+            // Sets an onClickListener on the deleteText TextView
             beatItem.findViewById(R.id.deleteText).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Removes the item from the database and the list and updates the view
                     beats.get((int) v.getTag()).delete();
                     beats.remove(beats.get((int) v.getTag()));
 
