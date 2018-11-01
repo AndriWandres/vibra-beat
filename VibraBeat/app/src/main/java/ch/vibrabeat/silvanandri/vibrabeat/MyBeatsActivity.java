@@ -3,9 +3,11 @@ package ch.vibrabeat.silvanandri.vibrabeat;
 import ch.vibrabeat.silvanandri.vibrabeat.model.Beat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -137,15 +139,46 @@ public class MyBeatsActivity extends AppCompatActivity {
             beatItem.findViewById(R.id.deleteText).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Removes the item from the database and the list and updates the view
-                    beats.get((int) v.getTag()).delete();
-                    beats.remove(beats.get((int) v.getTag()));
-
-                    notifyDataSetChanged();
+                    openConfirmDialog(v);
                 }
             });
 
             return beatItem;
+        }
+
+        /**
+         * Opens a confirm dialog before a beat is deleted
+         * @param view View in where the dialog is placed
+         */
+        private void openConfirmDialog(final View view) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MyBeatsActivity.this)
+                .setCancelable(true)
+                .setTitle(R.string.confirm_dialog_title)
+                .setMessage(R.string.confirm_dialog_message)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+
+                // Callback for when the "confirm" option is clicked
+                .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Removes the item from the database and the list and updates the view
+                        beats.get((int) view.getTag()).delete();
+                        beats.remove(beats.get((int) view.getTag()));
+
+                        notifyDataSetChanged();
+                    }
+                })
+
+                // Callback for when the "cancel" option is clicked
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }
