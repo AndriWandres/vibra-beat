@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Is fired when the application enters the state
-     * in where it can interact with the user.
+     * Is fired when the activity enters the state in where it can interact with the user
+     * e.g after the activity has been paused by onPause() and then resumed again.
      * Opens the database connection.
      */
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
      * Navigates to the MyBeatsActivity.
      * @param view User interface component
      */
-    public void mybeats(View view) {
+    public void myBeats(View view) {
         Intent intent = new Intent(this, MyBeatsActivity.class);
         startActivity(intent);
     }

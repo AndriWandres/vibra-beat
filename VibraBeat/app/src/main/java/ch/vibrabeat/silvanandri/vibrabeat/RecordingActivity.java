@@ -18,7 +18,7 @@ public class RecordingActivity extends AppCompatActivity {
     /** Timestamp used for calculating the beat */
     private Date timestamp;
 
-    /** Rhythm in form of milliseconds separated by semicolons */
+    /** Rhythm pattern in form of milliseconds separated by semicolons */
     private String beatStr = "0";
 
     /** Indicator whether the phone is vibrating */

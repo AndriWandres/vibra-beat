@@ -7,7 +7,7 @@ import android.os.Vibrator;
 import com.orm.SugarRecord;
 
 /**
- * Represents a beat in VibraBeat
+ * Represents a beat in Vibra Beat
  */
 public class Beat extends SugarRecord {
     /** Name of the beat */
