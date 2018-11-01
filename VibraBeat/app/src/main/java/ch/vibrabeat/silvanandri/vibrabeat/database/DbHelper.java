@@ -54,11 +54,11 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-        db.execSQL(SQL_CREATE_BEAT);
-        Log.d(LOG_TAG, "Table " + TABLE_BEAT + " was created: " + SQL_CREATE_BEAT);
+            db.execSQL(SQL_CREATE_BEAT);
+            Log.d(LOG_TAG, "Table " + TABLE_BEAT + " was created: " + SQL_CREATE_BEAT);
         }
         catch (Exception ex) {
-        Log.e(LOG_TAG, "Error while creating table: " + ex.getMessage());
+            Log.e(LOG_TAG, "Error while creating table: " + ex.getMessage());
         }
     }
 
