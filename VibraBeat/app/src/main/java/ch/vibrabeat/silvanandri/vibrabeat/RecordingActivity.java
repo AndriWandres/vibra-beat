@@ -19,7 +19,7 @@ public class RecordingActivity extends AppCompatActivity {
     private Date timestamp;
 
     /** Rhythm in form of milliseconds separated by semicolons */
-    private String beatStr = "0;";
+    private String beatStr = "0";
 
     private boolean vibrating = false;
 
@@ -85,7 +85,7 @@ public class RecordingActivity extends AppCompatActivity {
 
         if (timestamp != null) {
             long interval = getInterval(timestamp, timestamp_new, TimeUnit.MILLISECONDS);
-            beatStr += interval + ";";
+            beatStr += ";" + interval;
         }
 
         timestamp = timestamp_new;
@@ -96,7 +96,7 @@ public class RecordingActivity extends AppCompatActivity {
         Date timestamp_new = new Date();
 
         long interval = getInterval(timestamp, timestamp_new, TimeUnit.MILLISECONDS);
-        beatStr += interval + ";";
+        beatStr += ";" + interval;
 
         timestamp = timestamp_new;
     }
