@@ -39,8 +39,12 @@
         <activity
             android:name=".RecordingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SaveActivity" />
-        <activity android:name=".MyBeatsActivity"></activity>
+        <activity
+            android:name=".SaveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyBeatsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

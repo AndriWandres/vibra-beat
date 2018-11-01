@@ -1,5 +1,10 @@
 package ch.vibrabeat.silvanandri.vibrabeat.model;
 
+import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+
 import com.orm.SugarRecord;
 
 /**
@@ -106,5 +111,24 @@ public class Beat extends SugarRecord {
      */
     public String toString() {
         return name + " " + beatString;
+    }
+
+    public void runBeatString(Vibrator vibrator) {
+        // Read pattern from beat string
+        String[] patternStr = getBeatString().split(";");
+        long[] patternLong = new long[patternStr.length];
+        int[] amplitudes = new int[patternLong.length];
+
+        for(int i = 0; i < patternStr.length; i++) {
+            patternLong[i] = Long.parseLong(patternStr[i]);
+            amplitudes[i] = 255;
+        }
+
+        // Vibrate depending on Amplitude support
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            vibrator.vibrate(VibrationEffect.createWaveform(patternLong, amplitudes, -1));
+        } else{
+            vibrator.vibrate(patternLong, -1);
+        }
     }
 }
