@@ -26,10 +26,13 @@ import java.util.TimerTask;
  * This activity displays all beats that have been saved to the database.
  */
 public class MyBeatsActivity extends AppCompatActivity {
+    /** The view of the last beat list item that was selected */
     private View viewItem;
 
+    /** Timer instance for scheduling tasks */
     private Timer timer;
 
+    /** Handler for using callbacks */
     private Handler handler;
 
     /**
@@ -96,7 +99,10 @@ public class MyBeatsActivity extends AppCompatActivity {
     }
 
     private class BeatArrayAdapter extends ArrayAdapter<Beat> {
+        /** Contains Information about environment context */
         private Context context;
+
+        /** List of beats */
         private List<Beat> beats;
 
         /**
@@ -116,7 +122,7 @@ public class MyBeatsActivity extends AppCompatActivity {
          * @param position
          * @param convertView
          * @param parent
-         * @return BeatItem
+         * @return BeatItem view
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -177,6 +183,7 @@ public class MyBeatsActivity extends AppCompatActivity {
                     }
                 });
 
+            // Create dialog
             AlertDialog dialog = builder.create();
             dialog.show();
         }
