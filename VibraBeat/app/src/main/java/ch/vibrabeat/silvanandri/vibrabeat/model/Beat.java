@@ -1,6 +1,5 @@
 package ch.vibrabeat.silvanandri.vibrabeat.model;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -94,7 +93,7 @@ public class Beat extends SugarRecord {
             ms += Integer.parseInt(s);
         }
 
-        // Add minutes
+        // Add minutes, followed by a colon
         res += String.format("%02d", (int) Math.floor(ms / 60000)) + ":";
 
         ms %= 60000;
@@ -113,6 +112,10 @@ public class Beat extends SugarRecord {
         return name + " " + beatString;
     }
 
+    /**
+     * Vibrate the phone according to the beatString.
+     * @param vibrator Vibration service to control hardware vibration
+     */
     public void runBeatString(Vibrator vibrator) {
         // Read pattern from beat string
         String[] patternStr = getBeatString().split(";");

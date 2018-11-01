@@ -2,18 +2,18 @@ package ch.vibrabeat.silvanandri.vibrabeat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import ch.vibrabeat.silvanandri.vibrabeat.model.Beat;
-
+/**
+ * Displays mask where a rhythm is recorded via the users input.
+ */
 public class RecordingActivity extends AppCompatActivity {
     /** Timestamp used for calculating the beat */
     private Date timestamp;
@@ -21,10 +21,16 @@ public class RecordingActivity extends AppCompatActivity {
     /** Rhythm in form of milliseconds separated by semicolons */
     private String beatStr = "0";
 
+    /** Indicator whether the phone is vibrating */
     private boolean vibrating = false;
 
-    private Vibrator vib;
+    /** Service to control hardware vibration */
+    private Vibrator vibrator;
 
+    /**
+     * Is fired on creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +38,9 @@ public class RecordingActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        // Add touch listener on whole activity
         findViewById(R.id.recActivity).setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -41,11 +48,12 @@ public class RecordingActivity extends AppCompatActivity {
 
                     vibrating = true;
 
+                    // Vibrate while the screen is being touched
                     Thread t = new Thread() {
                         @Override
                         public void run() {
                             while (vibrating) {
-                                vib.vibrate(100);
+                                vibrator.vibrate(100);
                             }
                         }
                     };
@@ -55,6 +63,7 @@ public class RecordingActivity extends AppCompatActivity {
                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
                     v.setBackgroundResource(R.color.bgColor);
 
+                    // Stop vibrating when finger is released from the screen
                     vibrating = false;
 
                     onTouchUp();
@@ -64,6 +73,7 @@ public class RecordingActivity extends AppCompatActivity {
             }
         });
 
+        // Add click listener on stop button
         findViewById(R.id.stopButton).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 stopRecording();
@@ -71,7 +81,7 @@ public class RecordingActivity extends AppCompatActivity {
         });
     }
 
-    /** Stops recording and switches to SaveActivity */
+    /** Stops recording and navigates to SaveActivity */
     public void stopRecording() {
         Intent intent = new Intent(this, SaveActivity.class);
         intent.putExtra("beatStr", beatStr);

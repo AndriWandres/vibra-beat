@@ -5,24 +5,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 public class DbManager {
-    private static final String LOG_TAG = "DBACCESS";
+    private static final String LOG_TAG = "DB_ACCESS";
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
 
     public DbManager(Context context) {
-        Log.d(LOG_TAG, "DBMAnager erzeugt DBHelper.");
+        Log.d(LOG_TAG, "DbManager creates DbHelper.");
         dbHelper = new DbHelper(context);
     }
 
+
     public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
         database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
+        Log.d(LOG_TAG, "Database reference received. Path to database: " + database.getPath());
     }
 
+    /** Closes the database connection */
     public void close() {
         dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+        Log.d(LOG_TAG, "Database closed with the help of DbHelper.");
     }
 }

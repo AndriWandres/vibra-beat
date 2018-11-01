@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * This activity displays all beats that have been saved to the database.
+ */
 public class MyBeatsActivity extends AppCompatActivity {
     private View viewItem;
 
@@ -27,6 +30,10 @@ public class MyBeatsActivity extends AppCompatActivity {
 
     private Handler handler;
 
+    /**
+     * Is fired on creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +87,11 @@ public class MyBeatsActivity extends AppCompatActivity {
         private Context context;
         private List<Beat> beats;
 
+        /**
+         * Creates a new BeatArrayAdapter
+         * @param context Activity context
+         * @param beats List of beats
+         */
         public BeatArrayAdapter(Context context, List<Beat> beats) {
             super(context, -1, beats);
 

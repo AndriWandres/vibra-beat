@@ -12,7 +12,11 @@ import android.widget.TextView;
 
 import ch.vibrabeat.silvanandri.vibrabeat.model.Beat;
 
+/**
+ * Displays activity where it is possible to save your previous recorded beat.
+ */
 public class SaveActivity extends AppCompatActivity {
+    /** Rhythm pattern of the beat. */
     private String beatStr;
 
     /**
@@ -46,7 +50,7 @@ public class SaveActivity extends AppCompatActivity {
 
     /**
      * Saves the beat to the database
-     * @param view
+     * @param view User interface component
      */
     public void saveBeat(View view) {
         EditText editText = findViewById(R.id.name_input);
@@ -56,18 +60,18 @@ public class SaveActivity extends AppCompatActivity {
 
         // Save beat to database
         if (name != null && !name.trim().equals("")) {
-            Beat beat = new Beat(name, "0;" + beatStr);
+            Beat beat = new Beat(name, beatStr);
             beat.save();
-        }
 
-        // Navigate to MyBeatsActivity
-        Intent intent = new Intent(this, MyBeatsActivity.class);
-        startActivity(intent);
+            // Navigate to MyBeatsActivity
+            Intent intent = new Intent(this, MyBeatsActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
      * Navigate to main menu
-     * @param view
+     * @param view User interface component
      */
     public void cancel(View view) {
         Intent intent = new Intent(this, MainActivity.class);
