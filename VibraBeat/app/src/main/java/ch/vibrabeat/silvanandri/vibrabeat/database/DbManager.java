@@ -8,7 +8,7 @@ import android.util.Log;
  * Manages the database connection
  */
 public class DbManager {
-    /** Tag for writing debug logs */
+    /** Constant string tag for writing debug logs */
     private static final String LOG_TAG = "DB_ACCESS";
 
     /** SQLiteDatabase instance */

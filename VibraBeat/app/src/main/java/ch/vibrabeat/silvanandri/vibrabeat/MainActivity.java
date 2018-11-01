@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
      * Navigates to the MyBeatsActivity.
      * @param view User interface component
      */
-    public void mybeats(View view) {
+    public void myBeats(View view) {
         Intent intent = new Intent(this, MyBeatsActivity.class);
         startActivity(intent);
     }

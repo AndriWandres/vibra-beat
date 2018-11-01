@@ -9,7 +9,7 @@ import android.util.Log;
  * Utility class for creating the database.
  */
 public class DbHelper extends SQLiteOpenHelper {
-    /** Tag for writing debug logs */
+    /** Constant string tag for writing debug logs */
     private static final String LOG_TAG = "DB_ACCESS";
 
     /** Constant string with the database name */
