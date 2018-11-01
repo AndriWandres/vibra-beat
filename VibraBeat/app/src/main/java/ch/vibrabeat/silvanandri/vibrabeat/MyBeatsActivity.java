@@ -39,6 +39,9 @@ public class MyBeatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_beats);
 
+        setTitle("My Beats");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Prepare Handler and Timer
         timer = new Timer();
         handler = new Handler(new Handler.Callback() {
