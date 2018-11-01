@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Is fired when the application enters the state
-     * in where it can interact with the user.
+     * Is fired when the activity enters the state in where it can interact with the user
+     * e.g after the activity has been paused by onPause() and then resumed again.
      * Opens the database connection.
      */
     @Override
