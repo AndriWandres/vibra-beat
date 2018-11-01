@@ -28,6 +28,8 @@ public class SaveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
 
+        setTitle("Save Beat");
+
         // Retrieves beatstring from RecordingActivity
         Intent intent = getIntent();
         beatStr = intent.getStringExtra("beatStr");
