@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Is fired once when the database has not yet been created.
+     * Is fired once, if the database has not yet been created.
      * Executes the database create script.
      * @param db SQLite database instance to be created
      */

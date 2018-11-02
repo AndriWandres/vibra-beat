@@ -74,12 +74,12 @@ public class Beat extends SugarRecord {
 
     /**
      * Calculates the duration of a beat according to its beat string.
-     * The time is displayed as mm:ss
+     * The time is displayed in the format mm:ss
      *
      * @return duration of beat in mm:ss format.
      */
     public String getBeatLength() {
-        if (beatString == null || beatString == "") {
+        if (beatString == null || beatString == "0") {
             return "00:00";
         }
 
