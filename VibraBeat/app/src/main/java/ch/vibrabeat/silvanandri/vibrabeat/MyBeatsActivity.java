@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,6 +57,9 @@ public class MyBeatsActivity extends AppCompatActivity {
             @Override
             public boolean handleMessage(Message msg) {
                 viewItem.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.bgColor);
+                ((ImageView) viewItem.findViewById(R.id.playButton)).setImageResource(R.drawable.play_button);
+
+                viewItem = null;
 
                 return true;
             }
@@ -73,27 +77,38 @@ public class MyBeatsActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Sets the clicked Item in view to be able to use it in the Handler
-                viewItem = view;
-                view.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.lightBgColor);
+                if(viewItem == null) {
+                    // Sets the clicked Item in view to be able to use it in the Handler
+                    viewItem = view;
+                    view.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.lightBgColor);
+                    ((ImageView) view.findViewById(R.id.playButton)).setImageResource(R.drawable.stop_button);
 
-                // Runs the beatstring
-                beats.get(position).runBeatString((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+                    // Runs the beatstring
+                    beats.get(position).runBeatString((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
-                // Gets the beatstring and calculates it's length
-                String[] strings = beats.get(position).getBeatString().split(";");
-                long time = 0;
-                for(String s : strings) {
-                    time += Integer.parseInt(s);
-                }
-
-                // Starts the timer which runs the handler handleMessage by sending an empty message after it waited time milliseconds
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        handler.sendEmptyMessage(0);
+                    // Gets the beatstring and calculates it's length
+                    String[] strings = beats.get(position).getBeatString().split(";");
+                    long time = 0;
+                    for (String s : strings) {
+                        time += Integer.parseInt(s);
                     }
-                }, time);
+
+                    // Starts the timer which runs the handler handleMessage by sending an empty message after it waited time milliseconds
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.sendEmptyMessage(0);
+                        }
+                    }, time);
+                } else if(viewItem == view) {
+                    view.findViewById(R.id.relativeLayout).setBackgroundResource(R.color.bgColor);
+                    ((ImageView) view.findViewById(R.id.playButton)).setImageResource(R.drawable.play_button);
+                    viewItem = null;
+
+                    ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).cancel();
+                    timer.cancel();
+                    timer = new Timer();
+                }
             }
         });
     }

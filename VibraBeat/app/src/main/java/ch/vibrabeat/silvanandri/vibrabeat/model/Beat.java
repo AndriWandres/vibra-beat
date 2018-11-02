@@ -120,16 +120,16 @@ public class Beat extends SugarRecord {
         // Read pattern from beat string
         String[] patternStr = getBeatString().split(";");
         long[] patternLong = new long[patternStr.length];
-        int[] amplitudes = new int[patternLong.length];
+        //int[] amplitudes = new int[patternLong.length];
 
         for(int i = 0; i < patternStr.length; i++) {
             patternLong[i] = Long.parseLong(patternStr[i]);
-            amplitudes[i] = 255;
+            //amplitudes[i] = 255;
         }
 
         // Vibrate depending on Amplitude support
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            vibrator.vibrate(VibrationEffect.createWaveform(patternLong, amplitudes, -1));
+            vibrator.vibrate(VibrationEffect.createWaveform(patternLong/*, amplitudes*/, -1));
         } else{
             vibrator.vibrate(patternLong, -1);
         }
